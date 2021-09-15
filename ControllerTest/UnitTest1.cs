@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace ControlllerTest
+namespace ControllerTest
 {
     public class Tests
     {
