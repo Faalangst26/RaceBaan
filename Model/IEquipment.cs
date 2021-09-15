@@ -4,7 +4,12 @@ using System.Text;
 
 namespace Model
 {
-    interface IEquipment
+    public interface IEquipment
     {
+        public int Quality { get; set; }
+        public int Performance { get; set; }
+        public int Speed { get; set; }
+        public bool isBroken { get; set; }
+
     }
 }
