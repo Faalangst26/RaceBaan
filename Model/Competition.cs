@@ -14,7 +14,7 @@ namespace Model
        {
             Participants = new List<IParticipant>();
             Tracks = new Queue<Track>();
-            Console.WriteLine("Nieuwe competitie aangemaakt");
+            
        }
 
 
