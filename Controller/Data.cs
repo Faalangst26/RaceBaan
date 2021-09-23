@@ -10,6 +10,9 @@ namespace Controller
         public static Competition Competitie { get; set; }
         public static Race CurrentRace { get; set; }
 
+        
+    
+
         public static void Initialize()
         {
             Competitie = new Competition();
