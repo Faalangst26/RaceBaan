@@ -14,11 +14,19 @@ namespace Model
         {
             
             Name = name;
-            foreach (var trackpiece in sections)
-            {
-                Sections.AddLast(new Section(trackpiece));
-            }
+            Sections = ArrayToLinkedList(sections);
             
         }
+
+        public LinkedList<Section> ArrayToLinkedList(SectionTypes[] sections)
+        {
+            LinkedList<Section> Templist = new LinkedList<Section>();
+            foreach (var trackpiece in sections)
+            {
+                Templist.AddLast(new Section(trackpiece));
+            }
+            return Templist;
+        }
+
     }
 }
