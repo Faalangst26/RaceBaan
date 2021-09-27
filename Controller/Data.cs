@@ -41,7 +41,7 @@ namespace Controller
 
         public static void AddTracks()
         {
-            Competitie.Tracks.Enqueue(new Track("Baan 1", new SectionTypes[] { SectionTypes.StartGrid, SectionTypes.RightCorner, SectionTypes.Straight,SectionTypes.RightCorner,SectionTypes.Straight,SectionTypes.Straight,SectionTypes.RightCorner, SectionTypes.Straight,SectionTypes.RightCorner }));
+            Competitie.Tracks.Enqueue(new Track("Baan 1", new SectionTypes[] {SectionTypes.Finish, SectionTypes.StartGrid, SectionTypes.RightCorner, SectionTypes.Straight,SectionTypes.RightCorner,SectionTypes.Straight,SectionTypes.Straight,SectionTypes.RightCorner, SectionTypes.Straight,SectionTypes.RightCorner }));
             //Competitie.Tracks.Enqueue(new Track("Baan 2", null));
             //Competitie.Tracks.Enqueue(new Track("Baan 3", null));
         }
