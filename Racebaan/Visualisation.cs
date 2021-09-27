@@ -9,11 +9,11 @@ namespace Racebaan
     static class Visualisation
     {
         #region graphics
-        private static string[] _startHorizontal = { "----", "  ] ", "  ] ", "----"};
+        private static string[] _startHorizontal = { "----", "  ] ", "  ] ", "----" };
         private static string[] _finishHorizontal = { "----", "  # ", "  # ", "----" };
-        private static string[] _cornerRight = { "--o ", "   o", "   |", "o  |"};
-        private static string[] _cornerLeft = { "o  |", "   |", "   o", "--o "};
-        private static string[] _straightHorizontal = { "----", "    ", "    ", "----"};
+        private static string[] _cornerRight = { "--o ", "   o", "   |", "o  |" };
+        private static string[] _cornerLeft = { "o  |", "   |", "   o", "--o " };
+        private static string[] _straightHorizontal = { "----", "    ", "    ", "----" };
         private static string[] _straightVertical = { "|  |", "|  |", "|  |", "|  |" };
 
         #endregion
@@ -25,15 +25,16 @@ namespace Racebaan
 
         public static void DrawTrack(Track track)
         {
-            int hor = 0;
+            //Console.BackgroundColor = ConsoleColor.Blue;
+            //Teken locatie van het eerste element in track
+            int hor = 20;
+            int ver = 10;
             int direction = 1; //1 is richting het oosten, 2 richting het zuiden, 3 het westen, en 0 het noorden 
             foreach (Section item in track.Sections)
             {
-                if (direction >= 4) direction = 0;
-                if (direction <= -1) direction = 3;
-
-                int ver = 0;
-                Console.SetCursorPosition(hor, 0);
+                
+                Console.SetCursorPosition(hor, ver);
+                //Kijk wat voor type item het is, om te bepalen wat er getekend moet worden
                 if (item.SectionType.Equals(SectionTypes.StartGrid))
                 {
                     foreach (string line in _startHorizontal)
@@ -42,20 +43,23 @@ namespace Racebaan
                         Console.Write(line);
                         Console.SetCursorPosition(hor, ver);
                     }
+                    
                 }
+                //TODO: Bochten naar links implementeren 
                 if (item.SectionType.Equals(SectionTypes.LeftCorner))
                 {
-                    direction -= 1; 
+                    direction -= 1;
                     foreach (string line in _cornerLeft)
                     {
                         ver++;
                         Console.Write(line);
                         Console.SetCursorPosition(hor, ver);
                     }
+                    ver = 0;
                 }
                 if (item.SectionType.Equals(SectionTypes.RightCorner))// Checken welke richting we kijken voor het bepalen van de print
                 {
-                    if(direction == 1)//Bocht richting het zuiden
+                    if (direction == 1)//Bocht richting het zuiden
                     {
                         foreach (string line in _cornerRight)
                         {
@@ -63,6 +67,8 @@ namespace Racebaan
                             Console.Write(line);
                             Console.SetCursorPosition(hor, ver);
                         }
+                        
+
                     }
                     if (direction == 2)//Bocht richting het westen
                     {
@@ -72,6 +78,7 @@ namespace Racebaan
                             Console.Write(line);
                             Console.SetCursorPosition(hor, ver);
                         }
+                        
                     }
                     if (direction == 3)//Bocht richting het noorden
                     {
@@ -81,6 +88,7 @@ namespace Racebaan
                             Console.Write(ReverseString(line));
                             Console.SetCursorPosition(hor, ver);
                         }
+                        
                     }
                     if (direction == 0)//Bocht richting het oosten
                     {
@@ -90,15 +98,16 @@ namespace Racebaan
                             Console.Write(ReverseString(line));
                             Console.SetCursorPosition(hor, ver);
                         }
+                        
                     }
 
 
                     direction += 1;
-                    
+
                 }
                 if (item.SectionType.Equals(SectionTypes.Straight))// Checken welke richting we kijken voor het bepalen van de print
                 {
-                    if(direction == 1 || direction == 3)
+                    if (direction == 1 || direction == 3)
                     {
                         foreach (string line in _straightHorizontal)
                         {
@@ -116,7 +125,8 @@ namespace Racebaan
                             Console.SetCursorPosition(hor, ver);
                         }
                     }
-                   
+                    
+
                 }
                 if (item.SectionType.Equals(SectionTypes.Finish))
                 {
@@ -126,8 +136,28 @@ namespace Racebaan
                         Console.Write(line);
                         Console.SetCursorPosition(hor, ver);
                     }
+                    
                 }
-                hor += 5;
+
+                if (direction >= 4) direction = 0;
+                if (direction <= -1) direction = 3;
+
+                //Richting van de baan bepaald waar het volgende stuk getekend moet worden
+                if (direction == 0)
+                {
+                    ver -= 8;
+                }
+                else if (direction == 1)
+                {
+                    hor += 5;
+                    ver -= 4;
+                }
+                else if (direction == 3)
+                {
+                    hor -= 5;
+                    ver -= 4;
+                }
+
 
 
             }
