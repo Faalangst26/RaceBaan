@@ -20,7 +20,34 @@ namespace Controller
             this.track = track;
             this.Participants = participants;
             _random = new Random(DateTime.Now.Millisecond);
+            setStartPositions();
         }
+
+        public void setStartPositions()
+        {
+            foreach (Section item in track.Sections)//Loop door Alle sections in de baan heen
+            {
+                if (item.SectionType.Equals(SectionTypes.StartGrid))//Alleen startposities op de startgrid
+                {
+                    foreach (var participant in Participants)
+                    {
+                        if(item.SectionData.Left == null)
+                        {
+                            item.SectionData.Left = participant;
+                        } else if (item.SectionData.Right == null)
+                        {
+                            item.SectionData.Right = participant;
+                        }
+                        else
+                        {
+                            return;
+                        }                     
+                    }
+                }
+                
+            }
+        }
+
 
         public void RandomizeEquipment()
         {

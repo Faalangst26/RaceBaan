@@ -13,14 +13,16 @@ namespace Model
         StartGrid,
         Finish
     }
-
+    
     public class Section
     {
+        public SectionData SectionData { get; set; }
         public SectionTypes SectionType { get; set; }
         
         public Section(SectionTypes sectiontype)
         {
             SectionType = sectiontype;
+            SectionData = new SectionData();
         }
 
     }
