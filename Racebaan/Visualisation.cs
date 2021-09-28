@@ -9,12 +9,12 @@ namespace Racebaan
     static class Visualisation
     {
         #region graphics
-        private static string[] _startHorizontal = { "----", "  ] ", "  ] ", "----" };
-        private static string[] _finishHorizontal = { "----", "  # ", "  # ", "----" };
-        private static string[] _cornerRight = { "--o ", "   o", "   |", "o  |" };
-        private static string[] _cornerLeft = { "o  |", "   |", "   o", "--o " };
-        private static string[] _straightHorizontal = { "----", "    ", "    ", "----" };
-        private static string[] _straightVertical = { "|  |", "|  |", "|  |", "|  |" };
+        private static string[] _startHorizontal = { "----", " 1] ", "2 ] ", "----" };
+        private static string[] _finishHorizontal = { "----", " 1# ", "2 # ", "----" };
+        private static string[] _cornerRight = { "--o ", "   o", " 2 |", "o 1|" };
+        private static string[] _cornerLeft = { "o 1|", " 2 |", "   o", "--o " };
+        private static string[] _straightHorizontal = { "----", " 1  ", "  2 ", "----" };
+        private static string[] _straightVertical = { "|  |", "| 1|", "|2 |", "|  |" };
 
         #endregion
 
@@ -22,6 +22,29 @@ namespace Racebaan
         {
 
         }
+
+        public static string PlaceDriver(string input, IParticipant participant1, IParticipant participant2)
+        {
+            if(participant1 != null)
+            {
+                input = input.Replace('1', participant1.Name[0]);
+            }
+            else
+            {
+                input = input.Replace('1', ' ');
+            }
+            if (participant2 != null)
+            {
+                input = input.Replace('2', participant2.Name[0]);
+            }
+            else
+            {
+                input = input.Replace('2', ' ');
+            }
+                
+            return input;
+        }
+
 
         public static void DrawTrack(Track track)
         {
@@ -40,7 +63,8 @@ namespace Racebaan
                     foreach (string line in _startHorizontal)
                     {
                         ver++;
-                        Console.Write(line);
+                        string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                        Console.Write(driverline);
                         Console.SetCursorPosition(hor, ver);
                     }
                     
@@ -53,7 +77,8 @@ namespace Racebaan
                         foreach (string line in _cornerLeft)
                         {
                             ver++;
-                            Console.Write(line);
+                            string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                            Console.Write(driverline);
                             Console.SetCursorPosition(hor, ver);
                         }
                     }
@@ -62,7 +87,8 @@ namespace Racebaan
                         foreach (string line in _cornerLeft)
                         {
                             ver++;
-                            Console.Write(ReverseString(line));
+                            string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                            Console.Write(ReverseString(driverline));                            
                             Console.SetCursorPosition(hor, ver);
                         }
                     }
@@ -71,7 +97,8 @@ namespace Racebaan
                         foreach (string line in _cornerLeft)
                         {
                             ver++;
-                            Console.Write(line);
+                            string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                            Console.Write(driverline);
                             Console.SetCursorPosition(hor, ver);
                         }
                     }
@@ -80,7 +107,8 @@ namespace Racebaan
                         foreach (string line in _cornerLeft)
                         {
                             ver++;
-                            Console.Write(line);
+                            string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                            Console.Write(driverline);
                             Console.SetCursorPosition(hor, ver);
                         }
                     }
@@ -94,7 +122,8 @@ namespace Racebaan
                         foreach (string line in _cornerRight)
                         {
                             ver++;
-                            Console.Write(line);
+                            string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                            Console.Write(driverline);
                             Console.SetCursorPosition(hor, ver);
                         }
                         
@@ -105,7 +134,8 @@ namespace Racebaan
                         foreach (string line in _cornerRight.Reverse())//Loop achteruit door de array om hem te spielen over de x as
                         {
                             ver++;
-                            Console.Write(line);
+                            string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                            Console.Write(driverline);
                             Console.SetCursorPosition(hor, ver);
                         }
                         
@@ -115,7 +145,8 @@ namespace Racebaan
                         foreach (string line in _cornerRight.Reverse())
                         {
                             ver++;
-                            Console.Write(ReverseString(line));
+                            string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                            Console.Write(ReverseString(driverline));
                             Console.SetCursorPosition(hor, ver);
                         }
                         
@@ -125,7 +156,8 @@ namespace Racebaan
                         foreach (string line in _cornerRight)
                         {
                             ver++;
-                            Console.Write(ReverseString(line));
+                            string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                            Console.Write(ReverseString(driverline));
                             Console.SetCursorPosition(hor, ver);
                         }
                         
@@ -142,7 +174,8 @@ namespace Racebaan
                         foreach (string line in _straightHorizontal)
                         {
                             ver++;
-                            Console.Write(line);
+                            string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                            Console.Write(driverline);
                             Console.SetCursorPosition(hor, ver);
                         }
                     }
@@ -151,7 +184,8 @@ namespace Racebaan
                         foreach (string line in _straightVertical)
                         {
                             ver++;
-                            Console.Write(line);
+                            string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                            Console.Write(driverline);
                             Console.SetCursorPosition(hor, ver);
                         }
                     }
@@ -163,7 +197,8 @@ namespace Racebaan
                     foreach (string line in _finishHorizontal)
                     {
                         ver++;
-                        Console.Write(line);
+                        string driverline = PlaceDriver(line, item.SectionData.Left, item.SectionData.Right);
+                        Console.Write(driverline);
                         Console.SetCursorPosition(hor, ver);
                     }
                     
