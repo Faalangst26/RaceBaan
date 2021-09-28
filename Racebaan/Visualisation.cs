@@ -48,14 +48,44 @@ namespace Racebaan
                 //TODO: Bochten naar links implementeren 
                 if (item.SectionType.Equals(SectionTypes.LeftCorner))
                 {
-                    direction -= 1;
-                    foreach (string line in _cornerLeft)
+                    if (direction == 1)//Bocht richting het noorden
                     {
-                        ver++;
-                        Console.Write(line);
-                        Console.SetCursorPosition(hor, ver);
+                        foreach (string line in _cornerLeft)
+                        {
+                            ver++;
+                            Console.Write(line);
+                            Console.SetCursorPosition(hor, ver);
+                        }
                     }
-                    ver = 0;
+                    if (direction == 2)//Bocht richting het oosten
+                    {
+                        foreach (string line in _cornerLeft)
+                        {
+                            ver++;
+                            Console.Write(ReverseString(line));
+                            Console.SetCursorPosition(hor, ver);
+                        }
+                    }
+                    if (direction == 3)//Bocht richting het zuiden
+                    {
+                        foreach (string line in _cornerLeft)
+                        {
+                            ver++;
+                            Console.Write(line);
+                            Console.SetCursorPosition(hor, ver);
+                        }
+                    }
+                    if (direction == 0)//Bocht richting het westen
+                    {
+                        foreach (string line in _cornerLeft)
+                        {
+                            ver++;
+                            Console.Write(line);
+                            Console.SetCursorPosition(hor, ver);
+                        }
+                    }
+
+                    direction -= 1;
                 }
                 if (item.SectionType.Equals(SectionTypes.RightCorner))// Checken welke richting we kijken voor het bepalen van de print
                 {

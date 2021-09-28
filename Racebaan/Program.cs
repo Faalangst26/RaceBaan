@@ -10,6 +10,7 @@ namespace Racebaan
         {
             Data.Initialize();
             Data.NextRace();
+            Data.NextRace();
             Visualisation.DrawTrack(Data.CurrentRace.track);
             for (; ; )
             {
