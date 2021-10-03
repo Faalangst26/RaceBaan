@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Controller;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +21,15 @@ namespace Racebaan
 
         public static void Initialisation()
         {
-
+            //Helppp
+            Data.CurrentRace.DriversChanged += OnDriversChanged;
         }
+
+        public static void OnDriversChanged(object sender, DriversChangedEventArgs e)
+        {
+            DrawTrack(e.track);
+        }
+
 
         public static string PlaceDriver(string input, IParticipant participant1, IParticipant participant2)
         {

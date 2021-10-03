@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Timers;
 using Model;
 
 namespace Controller
@@ -11,6 +12,10 @@ namespace Controller
 
         private Dictionary<Section, SectionData> _positions;
 
+        private Timer timer;
+
+        public event EventHandler DriversChanged;
+
         public Track track { get; set; }
         public List<IParticipant> Participants { get; set; }
         public DateTime StartTime { get; set; }
@@ -20,8 +25,22 @@ namespace Controller
             this.track = track;
             this.Participants = participants;
             _random = new Random(DateTime.Now.Millisecond);
+            timer = new Timer(500);
+            timer.Elapsed += OnTimedEvent;
             setStartPositions();
         }
+
+        public void Start()
+        {
+            timer.Start();
+        }
+
+        static void OnTimedEvent(object sender, EventArgs e)
+        {
+            
+        }
+
+        
 
         public void setStartPositions()
         {
