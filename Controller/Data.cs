@@ -19,6 +19,7 @@ namespace Controller
             Competitie = new Competition();
             AddDrivers();
             AddTracks();
+            
         }
 
         public static void NextRace()
@@ -28,6 +29,7 @@ namespace Controller
             if(NextTrack != null)
             {
                 CurrentRace = new Race(NextTrack, Competitie.Participants);
+                CurrentRace.Start();
             }
             
         }

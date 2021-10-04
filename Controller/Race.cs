@@ -14,7 +14,13 @@ namespace Controller
 
         private Timer timer;
 
-        public event EventHandler DriversChanged;
+        private int StartCountdown = 1; //5 Seconden start countdown
+
+        public event EventHandler<DriversChangedEventArgs> DriversChanged;
+
+
+
+        //private DriversChangedEventArgs DCEA = new DriversChangedEventArgs();
 
         public Track track { get; set; }
         public List<IParticipant> Participants { get; set; }
@@ -33,14 +39,26 @@ namespace Controller
         public void Start()
         {
             timer.Start();
+            foreach (var item in track.Sections)
+            {
+                Console.WriteLine($"Sectiondata: {item.SectionData.Left}");
+            }
         }
 
-        static void OnTimedEvent(object sender, EventArgs e)
+        public void OnTimedEvent(object sender, EventArgs e)
         {
-            
+            StartCountdown--;
+            if (DriversChanged != null) DriversChanged(this, new DriversChangedEventArgs(track));
+
+            if (StartCountdown < 0)//Race is gestart
+            {
+                MoveDriver(Participants[0]);
+                StartCountdown = 4;
+            }
+
         }
 
-        
+
 
         public void setStartPositions()
         {
@@ -50,21 +68,44 @@ namespace Controller
                 {
                     foreach (var participant in Participants)
                     {
-                        if(item.SectionData.Left == null)
+                        if (item.SectionData.Left == null)
                         {
                             item.SectionData.Left = participant;
-                        } else if (item.SectionData.Right == null)
+                        }
+                        else if (item.SectionData.Right == null)
                         {
                             item.SectionData.Right = participant;
                         }
                         else
                         {
                             return;
-                        }                     
+                        }
                     }
                 }
-                
+
             }
+        }
+
+        public void MoveDriver(IParticipant participant)
+        {
+            Boolean next = false;
+            foreach (var section in track.Sections)
+            {
+                if (section.SectionData.Left != null)
+                {
+                    if (section.SectionData.Left.Equals(participant))
+                    {
+                        section.SectionData.Left = null;
+                        next = true;
+                    }
+                }
+                else if (next)
+                {
+                    section.SectionData.Left = participant;
+                    next = false;
+                }
+            }
+
         }
 
 
@@ -91,6 +132,6 @@ namespace Controller
             }
         }
 
-     
+
     }
 }

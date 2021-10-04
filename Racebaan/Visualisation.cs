@@ -16,18 +16,18 @@ namespace Racebaan
         private static string[] _cornerLeft = { "o 1|", " 2 |", "   o", "--o " };
         private static string[] _straightHorizontal = { "----", " 1  ", "  2 ", "----" };
         private static string[] _straightVertical = { "|  |", "| 1|", "|2 |", "|  |" };
-
+        
         #endregion
 
         public static void Initialisation()
         {
-            //Helppp
             Data.CurrentRace.DriversChanged += OnDriversChanged;
         }
 
         public static void OnDriversChanged(object sender, DriversChangedEventArgs e)
         {
             DrawTrack(e.track);
+            
         }
 
 
@@ -48,6 +48,7 @@ namespace Racebaan
             else
             {
                 input = input.Replace('2', ' ');
+                
             }
                 
             return input;
