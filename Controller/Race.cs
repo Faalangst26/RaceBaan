@@ -16,6 +16,8 @@ namespace Controller
 
         private int StartCountdown = 1; //5 Seconden start countdown
 
+        private int _RaceTime = 0; //Hoelang de race al bezig is
+
         public event EventHandler<DriversChangedEventArgs> DriversChanged;
 
 
@@ -48,13 +50,24 @@ namespace Controller
         public void OnTimedEvent(object sender, EventArgs e)
         {
             StartCountdown--;
-            if (DriversChanged != null) DriversChanged(this, new DriversChangedEventArgs(track));
+            if (DriversChanged != null) DriversChanged(this, new DriversChangedEventArgs(track)); //Drivers changed event afvuren
 
-            if (StartCountdown < 0)//Race is gestart
+            foreach (IParticipant participant in Participants)
             {
-                MoveDriver(Participants[0]);
-                StartCountdown = 4;
+                var driver = (Driver)participant;
+                participant.DistanceTravelled += driver.Performance * driver.Speed;
+                if(participant.DistanceTravelled % 100 == 0)//Bij elke 100 meter afgelegd
+                {
+                    MoveDriver(participant);
+                }
             }
+
+            //if (StartCountdown < 0)//Race is gestart
+            //{
+            //    MoveDriver(Participants[0]);
+            //    MoveDriver(Participants[1]);
+            //    StartCountdown = 4;
+            //}
 
         }
 
@@ -89,7 +102,8 @@ namespace Controller
         public void MoveDriver(IParticipant participant)
         {
             Boolean next = false;
-            foreach (var section in track.Sections)
+
+            foreach (var section in track.Sections)//Loop door de track heen en kijk waar de driver staat
             {
                 if (section.SectionData.Left != null)
                 {
@@ -99,11 +113,43 @@ namespace Controller
                         next = true;
                     }
                 }
-                else if (next)
+                else if (section.SectionData.Right != null)
                 {
-                    section.SectionData.Left = participant;
-                    next = false;
+                    if (section.SectionData.Right.Equals(participant))
+                    {
+                        section.SectionData.Right = null;
+                        next = true;
+                    }
                 }
+                else if (next)//Verplaats de driver naar het volgende trackpiece
+                {
+                    if (section.SectionData.Left == null)
+                    {
+                        section.SectionData.Left = participant;
+                        next = false;
+                    }
+                    else if (section.SectionData.Right == null)
+                    {
+                        section.SectionData.Right = participant;
+                        next = false;
+                    }
+                    else
+                    {
+
+                    }
+
+                }
+            }
+            if (next == true)//Als next nogsteeds true is, hebben we een rondje gecomplete en moet de driver naar het 1e slot op de baan
+            {
+                if(track.Sections.First.Value.SectionData.Left == null)
+                {
+                    track.Sections.First.Value.SectionData.Left = participant;
+                } else
+                {
+                    track.Sections.First.Value.SectionData.Right = participant;
+                }
+                
             }
 
         }

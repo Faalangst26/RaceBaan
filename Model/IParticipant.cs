@@ -22,5 +22,7 @@ namespace Model
 
         public TeamColors TeamColor { get; set; }
 
+        public int DistanceTravelled { get; set; }
+
     }
 }
