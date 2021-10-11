@@ -56,7 +56,7 @@ namespace Controller
         public void Start()
         {
             timer.Start();
-            
+
         }
 
         public void Stop()
@@ -75,16 +75,38 @@ namespace Controller
 
         public void OnTimedEvent(object sender, EventArgs e)
         {
+
+
+
+
             if (DriversChanged != null) DriversChanged(this, new DriversChangedEventArgs(track)); //Drivers changed event afvuren
             _NumberOfDrivers = Participants.Count;
             foreach (IParticipant participant in Participants)
             {
-                Console.BackgroundColor = ConsoleColor.Black;
                 var driver = (Driver)participant;
                 participant.DistanceTravelled += driver.Performance * driver.Speed;
-                if (participant.DistanceTravelled >= NumofLaps * _TrackLenght)
+                //Random failures
+                if (_random.Next(0, 9) > driver.Quality && driver.isBroken == false)
                 {
-                    
+                    //Failure
+                    driver.isBroken = true;
+                    driver.Speed = 0;
+                    driver.Name = driver.Name.Insert(0, "X");
+                }
+                if (driver.isBroken)
+                {
+
+                    if (_random.Next(0, 9) < driver.Quality)//Auto gerepareerd!
+                    {
+                        driver.isBroken = false;
+                        driver.Name = driver.Name.Remove(0, 1);
+
+                        driver.Speed = _random.Next(1, 20);
+                    }
+                } 
+                else if (participant.DistanceTravelled >= NumofLaps * _TrackLenght)
+                {
+
                     Console.SetCursorPosition(0, 0);
                     Console.WriteLine($" {participant.Name} is klaar met de race!");
                     RemoveDriver(participant);
@@ -93,11 +115,11 @@ namespace Controller
                 else if (participant.DistanceTravelled % 100 >= 1)//Bij elke 100 meter afgelegd
                 {
                     MoveDriver(participant);
-                    
+
                 }
                 if (_NumberOfDrivers <= 0)
                 {
-                    
+
                     Stop();
                 }
 

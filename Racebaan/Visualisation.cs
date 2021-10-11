@@ -38,6 +38,7 @@ namespace Racebaan
 
         public static string PlaceDriver(string input, IParticipant participant1, IParticipant participant2)
         {
+
             if(participant1 != null)
             {
                 input = input.Replace('1', participant1.Name[0]);

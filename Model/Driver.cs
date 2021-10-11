@@ -8,6 +8,8 @@ namespace Model
     {
         public string Name { get; set; }
         public int Points { get; set; }
+        public int Quality { get; set; }
+        public bool isBroken { get; set; }
         public IEquipment Equipment { get; set; }
         public TeamColors TeamColor { get; set; }
         public int DistanceTravelled { get; set; }
@@ -17,9 +19,10 @@ namespace Model
 
         public Driver(string name, int speed, int performance)
         {
-            this.Name = name;     
+            Name = name;
             Speed = speed;
             Performance = performance;
+            Quality = new Random().Next(5, 10);//Random kwaliteit
         }
 
     }
