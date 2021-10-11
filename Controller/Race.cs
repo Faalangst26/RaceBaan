@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Timers;
 using Model;
 
@@ -12,11 +13,12 @@ namespace Controller
 
         private Dictionary<Section, SectionData> _positions;
 
-        private Timer timer;
+        private System.Timers.Timer timer;
+        public int NumofLaps { get; set; }
 
-        private int StartCountdown = 1; //5 Seconden start countdown
+        private int _TrackLenght;
 
-        private int _RaceTime = 0; //Hoelang de race al bezig is
+        private int _NumberOfDrivers;
 
         public event EventHandler<DriversChangedEventArgs> DriversChanged;
 
@@ -28,12 +30,25 @@ namespace Controller
         public List<IParticipant> Participants { get; set; }
         public DateTime StartTime { get; set; }
 
-        public Race(Track track, List<IParticipant> participants)
+        public Race(Track track, int numoflaps, List<IParticipant> participants)
         {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine("Race constructor!");
+            Thread.Sleep(1000);
             this.track = track;
             this.Participants = participants;
+            NumofLaps = numoflaps;
+            _NumberOfDrivers = Participants.Count;
+            foreach (var section in track.Sections)
+            {
+                _TrackLenght += 100;
+            }
+            foreach (var participant in Participants)
+            {
+                participant.DistanceTravelled = 0;
+            }
             _random = new Random(DateTime.Now.Millisecond);
-            timer = new Timer(500);
+            timer = new System.Timers.Timer(500);
             timer.Elapsed += OnTimedEvent;
             setStartPositions();
         }
@@ -41,25 +56,51 @@ namespace Controller
         public void Start()
         {
             timer.Start();
-            foreach (var item in track.Sections)
+            
+        }
+
+        public void Stop()
+        {
+            Console.BackgroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("Race voorbij!");
+            timer.Stop();
+            timer.Elapsed -= OnTimedEvent;
+            foreach (EventHandler<DriversChangedEventArgs> Eh in DriversChanged.GetInvocationList())
             {
-                Console.WriteLine($"Sectiondata: {item.SectionData.Left}");
+                DriversChanged -= Eh;
             }
+            Console.Clear();
+            Data.NextRace();
         }
 
         public void OnTimedEvent(object sender, EventArgs e)
         {
-            StartCountdown--;
             if (DriversChanged != null) DriversChanged(this, new DriversChangedEventArgs(track)); //Drivers changed event afvuren
-
+            _NumberOfDrivers = Participants.Count;
             foreach (IParticipant participant in Participants)
             {
+                Console.BackgroundColor = ConsoleColor.Black;
                 var driver = (Driver)participant;
                 participant.DistanceTravelled += driver.Performance * driver.Speed;
-                if(participant.DistanceTravelled % 100 == 0)//Bij elke 100 meter afgelegd
+                if (participant.DistanceTravelled >= NumofLaps * _TrackLenght)
+                {
+                    
+                    Console.SetCursorPosition(0, 0);
+                    Console.WriteLine($" {participant.Name} is klaar met de race!");
+                    RemoveDriver(participant);
+                    _NumberOfDrivers--;
+                }
+                else if (participant.DistanceTravelled % 100 >= 1)//Bij elke 100 meter afgelegd
                 {
                     MoveDriver(participant);
+                    
                 }
+                if (_NumberOfDrivers <= 0)
+                {
+                    
+                    Stop();
+                }
+
             }
 
             //if (StartCountdown < 0)//Race is gestart
@@ -97,6 +138,30 @@ namespace Controller
                 }
 
             }
+        }
+
+        public void RemoveDriver(IParticipant participant)
+        {
+            foreach (var section in track.Sections)
+            {
+                if (section.SectionData.Left != null)
+                {
+                    if (section.SectionData.Left.Equals(participant))
+                    {
+                        section.SectionData.Left = null;
+
+                    }
+                }
+                else if (section.SectionData.Right != null)
+                {
+                    if (section.SectionData.Right.Equals(participant))
+                    {
+                        section.SectionData.Right = null;
+
+                    }
+                }
+            }
+
         }
 
         public void MoveDriver(IParticipant participant)
@@ -142,14 +207,15 @@ namespace Controller
             }
             if (next == true)//Als next nogsteeds true is, hebben we een rondje gecomplete en moet de driver naar het 1e slot op de baan
             {
-                if(track.Sections.First.Value.SectionData.Left == null)
+                if (track.Sections.First.Value.SectionData.Left == null)
                 {
                     track.Sections.First.Value.SectionData.Left = participant;
-                } else
+                }
+                else
                 {
                     track.Sections.First.Value.SectionData.Right = participant;
                 }
-                
+
             }
 
         }

@@ -22,6 +22,7 @@ namespace Racebaan
         public static void Initialisation()
         {
             Data.CurrentRace.DriversChanged += OnDriversChanged;
+            Data.UpdateRace += UpdatedRace;
         }
 
         public static void OnDriversChanged(object sender, DriversChangedEventArgs e)
@@ -30,6 +31,10 @@ namespace Racebaan
             
         }
 
+        public static void UpdatedRace(object sender, EventArgs e)
+        {
+            Initialisation();
+        }
 
         public static string PlaceDriver(string input, IParticipant participant1, IParticipant participant2)
         {
