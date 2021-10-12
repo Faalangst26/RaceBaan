@@ -46,6 +46,7 @@ namespace Controller
             foreach (var participant in Participants)
             {
                 participant.DistanceTravelled = 0;
+                participant.LapsDone = 0;
             }
             _random = new Random(DateTime.Now.Millisecond);
             timer = new System.Timers.Timer(500);
@@ -104,7 +105,7 @@ namespace Controller
                         driver.Speed = _random.Next(1, 20);
                     }
                 } 
-                else if (participant.DistanceTravelled >= NumofLaps * _TrackLenght)
+                else if (driver.LapsDone >= NumofLaps)
                 {
 
                     Console.SetCursorPosition(0, 0);
@@ -220,22 +221,20 @@ namespace Controller
                         section.SectionData.Right = participant;
                         next = false;
                     }
-                    else
-                    {
-
-                    }
 
                 }
             }
-            if (next == true)//Als next nogsteeds true is, hebben we een rondje gecomplete en moet de driver naar het 1e slot op de baan
+            if (next == true)//Als next nogsteeds true is, hebben we een rondje gecomplete en moet de driver naar het 1e slot op de baan en is er een ronde afgerond     
             {
                 if (track.Sections.First.Value.SectionData.Left == null)
                 {
                     track.Sections.First.Value.SectionData.Left = participant;
+                    participant.LapsDone++;      
                 }
                 else
                 {
                     track.Sections.First.Value.SectionData.Right = participant;
+                    participant.LapsDone++;
                 }
 
             }

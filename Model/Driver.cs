@@ -14,6 +14,7 @@ namespace Model
         public TeamColors TeamColor { get; set; }
         public int DistanceTravelled { get; set; }
 
+        public int LapsDone { get; set; }
         public int Speed { get; set; }
         public int Performance { get; set; }
 
