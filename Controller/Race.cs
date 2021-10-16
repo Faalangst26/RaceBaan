@@ -16,8 +16,6 @@ namespace Controller
         private System.Timers.Timer timer;
         public int NumofLaps { get; set; }
 
-        private int _TrackLenght;
-
         private int _NumberOfDrivers;
 
         public event EventHandler<DriversChangedEventArgs> DriversChanged;
@@ -39,10 +37,6 @@ namespace Controller
             this.Participants = participants;
             NumofLaps = numoflaps;
             _NumberOfDrivers = Participants.Count;
-            foreach (var section in track.Sections)
-            {
-                _TrackLenght += 100;
-            }
             foreach (var participant in Participants)
             {
                 participant.DistanceTravelled = 0;
