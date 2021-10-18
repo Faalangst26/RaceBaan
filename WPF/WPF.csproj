@@ -83,7 +83,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Graphics\" />
+    <Content Include="Graphics\corner_left.png" />
+    <Content Include="Graphics\corner_right.png" />
+    <Content Include="Graphics\finish.png" />
+    <Content Include="Graphics\startgrid.png" />
+    <Content Include="Graphics\straigt_hor.png" />
+    <Content Include="Graphics\straigt_ver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Graphics\racecar_blue.png" />
+    <Content Include="Graphics\racecar_green.png" />
+    <Content Include="Graphics\racecar_orange.png" />
+    <Content Include="Graphics\racecar_red.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
