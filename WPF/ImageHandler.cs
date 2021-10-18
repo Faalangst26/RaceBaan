@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using System.Drawing.Imaging;
 
 namespace WPF
 {
@@ -37,8 +40,46 @@ namespace WPF
             else //Er is nog geen empty Bitmap in de cache, maak een nieuwe aan.
             {
                 Bitmap background = new Bitmap(len, width);
+                _ImageCache["empty"] = (Bitmap)background.Clone();
                 var graphics = Graphics.FromImage(background);
-                graphics.FillRectangle(Brush, 0, 0, len, width);
+                graphics.FillRectangle(new SolidBrush(System.Drawing.Color.LightGreen), 0, 0, len, width);
+                graphics.DrawImage(background, 0, 0);
+                
+                return background;
+
+            }
+        }
+
+        public static BitmapSource CreateBitmapSourceFromGdiBitmap(Bitmap bitmap)
+        {
+            if (bitmap == null)
+                throw new ArgumentNullException("bitmap");
+
+            var rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+
+            var bitmapData = bitmap.LockBits(
+                rect,
+                ImageLockMode.ReadWrite,
+                System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+            try
+            {
+                var size = (rect.Width * rect.Height) * 4;
+
+                return BitmapSource.Create(
+                    bitmap.Width,
+                    bitmap.Height,
+                    bitmap.HorizontalResolution,
+                    bitmap.VerticalResolution,
+                    PixelFormats.Bgra32,
+                    null,
+                    bitmapData.Scan0,
+                    size,
+                    bitmapData.Stride);
+            }
+            finally
+            {
+                bitmap.UnlockBits(bitmapData);
             }
         }
     }
