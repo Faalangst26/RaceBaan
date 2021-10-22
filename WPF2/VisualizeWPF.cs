@@ -64,6 +64,7 @@ namespace WPF2
                     _direction--;
                     var img = Image.FromFile(corner_left);
                     img.RotateFlip(Calcrotation());
+                    img.RotateFlip(RotateFlipType.RotateNoneFlipY);//Correctie omdat dit een bocht naar links is
                     gr.DrawImage(img, cursorpos);
                 }
 
@@ -73,19 +74,19 @@ namespace WPF2
                 {
                     
                     _direction = 0;
-                    cursorpos.Y += 50;
+                    cursorpos.Y += 60;
                 }
                 else if (_direction == 1) //Oosten
                 {
-                    cursorpos.X += 50;
+                    cursorpos.X += 60;
                 }
                 else if (_direction == 2) //Zuiden
                 {
-                    cursorpos.Y -= 50;
+                    cursorpos.Y -= 60;
                 }
                 else if (_direction == 3 || _direction < 0)//Westen
                 {
-                    cursorpos.X -= 50;
+                    cursorpos.X -= 60;
                 }
             }
 
