@@ -33,9 +33,6 @@ namespace Controller
                 CurrentRace = new Race(NextTrack, 2, Competitie.Participants);
                 if (UpdateRace != null) UpdateRace(CurrentRace, new EventArgs()); //Drivers changed event afvuren
                 CurrentRace.Start();
-                Console.WriteLine("Race afgerond, nieuwe opstarten!!");
-                Thread.Sleep(500);
-                Console.Clear();
             }
             
         }

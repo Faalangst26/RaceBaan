@@ -64,7 +64,7 @@ namespace Controller
             {
                 DriversChanged -= Eh;
             }
-            Console.Clear();
+            
             Data.NextRace();
         }
 
@@ -102,8 +102,6 @@ namespace Controller
                 else if (driver.LapsDone >= NumofLaps)
                 {
 
-                    Console.SetCursorPosition(0, 0);
-                    Console.WriteLine($" {participant.Name} is klaar met de race!");
                     RemoveDriver(participant);
                     _NumberOfDrivers--;
                 }
