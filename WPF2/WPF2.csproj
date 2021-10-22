@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>racecar_red.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +18,7 @@
     <None Remove="Graphics\startgrid.png" />
     <None Remove="Graphics\straigt_hor.png" />
     <None Remove="Graphics\straigt_ver.png" />
+    <None Remove="racecar_red.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,6 +62,10 @@
     <ProjectReference Include="..\Controller\Controller.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
     <ProjectReference Include="..\Racebaan\Racebaan.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="racecar_red.ico" />
   </ItemGroup>
 
   <ItemGroup>
