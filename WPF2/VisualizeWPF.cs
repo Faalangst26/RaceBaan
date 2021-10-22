@@ -91,7 +91,6 @@ namespace WPF2
 
 
 
-            gr.DrawImage(Image.FromFile(startgrid), new Point(0, 0));
             var Bitmapsource = ImageHandler.CreateBitmapSourceFromGdiBitmap(trackimg);
 
             return Bitmapsource;
