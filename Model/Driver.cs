@@ -18,12 +18,13 @@ namespace Model
         public int Speed { get; set; }
         public int Performance { get; set; }
 
-        public Driver(string name, int speed, int performance)
+        public Driver(string name, int speed, int performance, TeamColors color)
         {
             Name = name;
             Speed = speed;
             Performance = performance;
             Quality = new Random().Next(5, 10);//Random kwaliteit
+            TeamColor = color;
         }
 
     }

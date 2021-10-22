@@ -40,8 +40,8 @@ namespace Controller
 
         public static void AddDrivers()
         {
-            Competitie.Participants.Add(new Driver("Gerard", 10, 5));
-            Competitie.Participants.Add(new Driver("Henk", 15, 5));
+            Competitie.Participants.Add(new Driver("Gerard", 10, 5, TeamColors.Red));
+            Competitie.Participants.Add(new Driver("Henk", 15, 5, TeamColors.Blue));
         
         }
 

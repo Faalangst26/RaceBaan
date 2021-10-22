@@ -37,6 +37,7 @@ namespace WPF2
         public void UpdatedRace(object sender, EventArgs e)
         {
             Initialisation();
+            ImageHandler.ClearCache();
         }
 
         public void OnDriversChangedWPF(object sender, DriversChangedEventArgs e)

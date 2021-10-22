@@ -68,6 +68,8 @@ namespace WPF2
                     gr.DrawImage(img, cursorpos);
                 }
 
+                PlaceDriver(section, gr);
+
 
                 //Cursor en draaing bepalen
                 if (_direction == 0 || _direction > 3)//Noorden
@@ -96,6 +98,44 @@ namespace WPF2
 
             return Bitmapsource;
         }
+
+        public static Graphics PlaceDriver(Section section, Graphics gr)
+        {
+            Image img;
+            if(section.SectionData.Left != null)
+            {
+                TeamColors color = section.SectionData.Left.TeamColor;
+                if (section.SectionData.Left.Name.StartsWith("X"))
+                {
+                    img = Image.FromFile($".\\Graphics\\racecar_boom.png");
+                }
+                else
+                {
+                    img = Image.FromFile($".\\Graphics\\racecar_{color.ToString().ToLower()}.png");
+                }
+                img.RotateFlip(Calcrotation());
+                img.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                gr.DrawImage(img, cursorpos);
+            }
+            if (section.SectionData.Right != null)
+            {
+                TeamColors color = section.SectionData.Right.TeamColor;
+                if (section.SectionData.Right.Name.StartsWith("X"))
+                {
+                    img = Image.FromFile($".\\Graphics\\racecar_boom.png");
+                }
+                else
+                {
+                    img = Image.FromFile($".\\Graphics\\racecar_{color.ToString().ToLower()}.png");
+                }
+                img.RotateFlip(Calcrotation());
+                img.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                gr.DrawImage(img, cursorpos.X + 30, cursorpos.Y + 30);
+            }
+            return gr;
+
+        }
+
 
         public static RotateFlipType Calcrotation()
         {
