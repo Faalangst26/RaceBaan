@@ -9,6 +9,15 @@
     <Grid>
         <Grid HorizontalAlignment="Left" Height="669" VerticalAlignment="Top" Width="1031" Background="#FF00B000">
             <Image x:Name="MainImage" Margin="14,45,166,0" Height="480" VerticalAlignment="Top"/>
+            <DockPanel LastChildFill="False">
+                <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top">
+                    <MenuItem Header="Menu">
+                        <MenuItem Header="Race"/>
+                        <MenuItem Header="Competitie"/>
+                        <MenuItem Header="Afsluiten"/>
+                    </MenuItem>
+                </Menu>
+            </DockPanel>
         </Grid>
 
     </Grid>
