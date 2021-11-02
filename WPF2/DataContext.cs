@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,40 @@ namespace WPF2
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("track"));
             } 
         }
+        private ObservableCollection<string> _racelijst;
+        public ObservableCollection<string> racelijst
+        {
+            get
+            {
+                return _racelijst;
+            }
+            set
+            {
+                _racelijst = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("racelijst"));
+            }
+        }
+
+        private ObservableCollection<string> _driverlijst;
+        public ObservableCollection<string> driverlijst
+        {
+            get
+            {
+                return _driverlijst;
+            }
+            set
+            {
+                _driverlijst = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("driverlijst"));
+            }
+        }
+
+
+
+
+
+
+
         public DataContext()
         {
 

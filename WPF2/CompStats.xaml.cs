@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,30 @@ namespace WPF2
         public CompStats()
         {
             InitializeComponent();
+            this.Dispatcher.Invoke(() =>
+            {
+                var datacontext = (DataContext)this.CompGrid.DataContext;
+                datacontext.racelijst = new System.Collections.ObjectModel.ObservableCollection<string>();
+                //Voeg alle tracknamen toe aan de lijst
+                datacontext.racelijst.Add(Data.CurrentRace.track.Name);
+                foreach (var item in Data.Competitie.Tracks)
+                {
+                    datacontext.racelijst.Add(item.Name);
+                }
+                datacontext.driverlijst = new System.Collections.ObjectModel.ObservableCollection<string>();
+                //Voeg alle drivers toe aan de lijst
+                foreach (var item in Data.Competitie.Participants)
+                {
+                    datacontext.driverlijst.Add(item.Name);
+                }
+
+            });
+
+        }
+
+        private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
