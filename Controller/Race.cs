@@ -112,12 +112,6 @@ namespace Controller
 
             }
 
-            //if (StartCountdown < 0)//Race is gestart
-            //{
-            //    MoveDriver(Participants[0]);
-            //    MoveDriver(Participants[1]);
-            //    StartCountdown = 4;
-            //}
 
         }
 
@@ -227,29 +221,6 @@ namespace Controller
 
         }
 
-
-        //public void RandomizeEquipment()
-        //{
-        //    foreach (var participant in Participants)
-        //    {
-        //        participant.Equipment.Quality = _random.Next();
-        //        participant.Equipment.Performance = _random.Next();
-        //    }
-        //}
-
-        //public SectionData GetSectionData(Section section)
-        //{
-
-        //    if (_positions[section] != null)
-        //    {
-        //        return _positions[section];
-        //    }
-        //    else
-        //    {
-        //        _positions.Add(section, new SectionData());
-        //        return _positions[section];
-        //    }
-        //}
 
 
     }

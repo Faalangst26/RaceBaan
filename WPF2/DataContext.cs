@@ -70,25 +70,11 @@ namespace WPF2
         }
 
 
-
-
-
-
-
-
         public DataContext()
         {
 
         }
 
-
-
-        public void OnDriversChanged(object sender, DriversChangedEventArgs e)
-        {
-            
-            
-
-        }
 
     }
 }
