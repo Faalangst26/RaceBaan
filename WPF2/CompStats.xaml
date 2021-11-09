@@ -13,7 +13,7 @@
         <Grid Margin="0,0,-399,0">
             <Label Content="Races in deze competitie:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
             <ListBox x:Name="driverlijst" Margin="400,46,0,0" ItemsSource="{Binding driverlijst}"/>
-            <Label Content="Coureurs in deze competitie:" Margin="424,10,214,0" VerticalAlignment="Top" RenderTransformOrigin="0.058,0.055"/>
+            <Label Content="Coureurs in deze competitie:" Margin="424,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.058,0.055" HorizontalAlignment="Left" Width="161"/>
         </Grid>
         <ListBox x:Name="racelijst" IsSynchronizedWithCurrentItem="False" ItemsSource="{Binding racelijst}" Margin="0,45,0,0">
         </ListBox>

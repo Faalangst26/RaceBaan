@@ -42,7 +42,7 @@ namespace Controller
         {
             Competitie.Participants.Add(new Driver("Gerard", 10, 5, TeamColors.Red));
             Competitie.Participants.Add(new Driver("Henk", 15, 5, TeamColors.Blue));
-        
+            
         }
 
         public static void AddTracks()

@@ -26,7 +26,6 @@ namespace Controller
 
         public Track track { get; set; }
         public List<IParticipant> Participants { get; set; }
-        public DateTime StartTime { get; set; }
 
         public Race(Track track, int numoflaps, List<IParticipant> participants)
         {
@@ -59,12 +58,7 @@ namespace Controller
             Console.BackgroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("Race voorbij!");
             timer.Stop();
-            timer.Elapsed -= OnTimedEvent;
-            foreach (EventHandler<DriversChangedEventArgs> Eh in DriversChanged.GetInvocationList())
-            {
-                DriversChanged -= Eh;
-            }
-            
+            timer.Elapsed -= OnTimedEvent;            
             Data.NextRace();
         }
 
@@ -99,7 +93,7 @@ namespace Controller
                         driver.Speed = _random.Next(1, 20);
                     }
                 } 
-                else if (driver.LapsDone >= NumofLaps)
+                else if (driver.LapsDone >=  NumofLaps)
                 {
 
                     RemoveDriver(participant);
@@ -234,28 +228,28 @@ namespace Controller
         }
 
 
-        public void RandomizeEquipment()
-        {
-            foreach (var participant in Participants)
-            {
-                participant.Equipment.Quality = _random.Next();
-                participant.Equipment.Performance = _random.Next();
-            }
-        }
+        //public void RandomizeEquipment()
+        //{
+        //    foreach (var participant in Participants)
+        //    {
+        //        participant.Equipment.Quality = _random.Next();
+        //        participant.Equipment.Performance = _random.Next();
+        //    }
+        //}
 
-        public SectionData GetSectionData(Section section)
-        {
+        //public SectionData GetSectionData(Section section)
+        //{
 
-            if (_positions[section] != null)
-            {
-                return _positions[section];
-            }
-            else
-            {
-                _positions.Add(section, new SectionData());
-                return _positions[section];
-            }
-        }
+        //    if (_positions[section] != null)
+        //    {
+        //        return _positions[section];
+        //    }
+        //    else
+        //    {
+        //        _positions.Add(section, new SectionData());
+        //        return _positions[section];
+        //    }
+        //}
 
 
     }

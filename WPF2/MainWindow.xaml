@@ -21,7 +21,6 @@
                     </MenuItem>
                 </Menu>
             </DockPanel>
-            <Label HorizontalAlignment="Left" Margin="741,0,0,10" VerticalAlignment="Bottom" FontSize="30" Height="96" Width="280" Content="{Binding Track}"/>
 
         </Grid>
 

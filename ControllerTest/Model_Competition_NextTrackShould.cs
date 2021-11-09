@@ -1,8 +1,11 @@
 ﻿using Model;
+using Racebaan;
+using Controller;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace ControllerTest
 {
@@ -52,7 +55,54 @@ namespace ControllerTest
             Assert.AreEqual(testbaan2, result);
 
         }
+        [Test]
+        public void Initialise_Competition_CheckTracks()
+        {
+            Controller.Data.Initialize();
+            
+            Assert.NotNull(Controller.Data.Competitie.Tracks);
+            Assert.NotNull(Controller.Data.Competitie.Participants);
+        }
+        [Test]
+        public void NextRace_Competition_CheckCurrentRace()
+        {
+            Data.Initialize();
+            Data.NextRace();
+            
+            Assert.IsNotNull(Data.CurrentRace);
+        }
+        [Test]
+        public void MoveDriver_Race_CheckMove()
+        {
+            Data.Initialize();
+            Data.NextRace();
 
+            Data.CurrentRace.OnTimedEvent(this, new EventArgs());
+            
+            Assert.IsTrue(Data.CurrentRace.Participants[0].DistanceTravelled > 0);
+           
+        }
+        [Test]
+        public void EndRace_Race_CheckFinished()
+        {
+            Data.Initialize();
+            Data.NextRace();
+            int numofraces = Data.Competitie.Tracks.Count;            
+            Data.CurrentRace.OnTimedEvent(this, new EventArgs());
+            Data.CurrentRace.Stop();
+            Assert.IsTrue(Data.Competitie.Tracks.Count < numofraces);
+
+        }
+        [Test]
+        public void DriverFinished()
+        {
+            Data.Initialize();
+            Data.NextRace();
+            Data.CurrentRace.OnTimedEvent(this, new EventArgs());
+            Data.CurrentRace.Participants[0].LapsDone = Data.CurrentRace.NumofLaps;
+            Data.CurrentRace.Participants[1].LapsDone = Data.CurrentRace.NumofLaps;
+            Assert.IsTrue(true);
+        }
 
 
 

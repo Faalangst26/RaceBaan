@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Racebaan
 {
-    static class Visualisation
+    public static class Visualisation
     {
         #region graphics
         private static string[] _startHorizontal = { "----", " 1] ", "2 ] ", "----" };

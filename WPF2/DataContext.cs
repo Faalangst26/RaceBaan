@@ -54,6 +54,21 @@ namespace WPF2
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("driverlijst"));
             }
         }
+        private ObservableCollection<int> _afstandlijst;
+
+        public ObservableCollection<int> afstandlijst
+        {
+            get
+            {
+                return _afstandlijst;
+            }
+            set
+            {
+                _afstandlijst = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("afstandlijst"));
+            }
+        }
+
 
 
 

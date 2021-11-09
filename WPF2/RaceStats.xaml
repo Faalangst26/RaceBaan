@@ -6,7 +6,19 @@
         xmlns:local="clr-namespace:WPF2"
         mc:Ignorable="d"
         Title="RaceStats" Height="450" Width="800">
-    <Grid>
-        
+    <Grid x:Name="RaceGrid" Margin="0,0,400,0">
+        <Grid.DataContext>
+            <local:DataContext/>
+        </Grid.DataContext>
+        <Grid Margin="0,0,-399,0">
+            <Label Content="Coureurs:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            <ListBox x:Name="afstandlijst" Margin="128,46,510,0" ItemsSource="{Binding afstandlijst}"/>
+            <Label Content="Afstand afgelegd:" Margin="128,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.058,0.055" HorizontalAlignment="Left" Width="161"/>
+            <Label Content="Huidige baan:" HorizontalAlignment="Left" Margin="345,10,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="tracklabel" Content="{Binding Track}" HorizontalAlignment="Left" Margin="433,0,0,0" VerticalAlignment="Top" Height="48" Width="72"/>
+        </Grid>
+        <ListBox x:Name="driverlijst" IsSynchronizedWithCurrentItem="False" ItemsSource="{Binding driverlijst}" Margin="0,45,272,0">
+        </ListBox>
+        <Grid Margin="0,0,272,0"/>
     </Grid>
 </Window>
