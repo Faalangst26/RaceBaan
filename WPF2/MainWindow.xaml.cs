@@ -62,7 +62,7 @@ namespace WPF2
                 this.MainImage.Source = null;
                 this.MainImage.Source = VisualizeWPF.DrawTrack(e.track);
             }));
-            this.Dispatcher.Invoke(() =>
+            this.Dispatcher?.Invoke(() =>
             {
                 var datacontext = (DataContext)this.MijnGrid.DataContext;
                 datacontext.Track = Data.CurrentRace.track.Name;
